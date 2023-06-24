@@ -10,7 +10,11 @@ import MainInfo from "./components/MainInfo/MainInfo";
 function App() {
     const mainElement = useRef<HTMLDivElement>(null)
     const bgElement = useRef<HTMLDivElement>(null)
-    const circleElement = useRef<HTMLDivElement>(null)
+    const circleElement1 = useRef<HTMLDivElement>(null)
+    const circleElement2 = useRef<HTMLDivElement>(null)
+    const circleBorderElement1 = useRef<HTMLDivElement>(null)
+    const circleBorderElement2 = useRef<HTMLDivElement>(null)
+    const circleBorderChildElement = useRef<HTMLDivElement>(null)
 
     const theme = createTheme({
         typography: {
@@ -39,20 +43,23 @@ function App() {
     });
 
     const [isAnimation, setIsAnimation] = useState<boolean>(false);
-    const [isReadyArticle, setIsReadyArticle] = useState<boolean>(true);
+    const [isReadyArticle, setIsReadyArticle] = useState<boolean>(false);
 
-    // useEffect(() => {
-    //     if (mainElement.current) {
-    //         mainElement.current.style.display = 'none';
-    //     }
-    //     if (bgElement.current) {
-    //         bgElement.current.style.transform  = 'scale(0.7) translateX(-50%)';
-    //     }
-    // }, [])
+    const handleOpenTitle = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        window.location.href = 'https://telegra.ph/Algoritmy-sortirovki-principy-i-primery-06-24';
+    }
 
     return (
         <div className="App">
-            <BG bgElement={bgElement} isAnimation={isAnimation} circleElement={circleElement}>
+            <BG bgElement={bgElement}
+                isAnimation={isAnimation}
+                circleElement1={circleElement1}
+                circleElement2={circleElement2}
+                circleBorderElement1={circleBorderElement1}
+                circleBorderElement2={circleBorderElement2}
+                circleBorderChildElement={circleBorderChildElement}
+            >
                 {isAnimation ?
                     isReadyArticle ?
                             (
@@ -66,7 +73,7 @@ function App() {
                                                     text: "white",
                                                     fontFamily: 'Montserrat-Bold',
                                                 }}
-                                                onClick={() => console.log('CHECK')}
+                                                onClick={handleOpenTitle}
                                         >
                                             Перейти к статье
                                         </Button>
@@ -78,7 +85,16 @@ function App() {
                     :
                     null
                 }
-                <MainInfo mainElement={mainElement} bgElement={bgElement} circleElement={circleElement} setIsAnimation={setIsAnimation}/>
+                <MainInfo mainElement={mainElement}
+                          bgElement={bgElement}
+                          circleElement1={circleElement1}
+                          circleElement2={circleElement2}
+                          circleBorderElement1={circleBorderElement1}
+                          circleBorderElement2={circleBorderElement2}
+                          circleBorderChildElement={circleBorderChildElement}
+                          setIsAnimation={setIsAnimation}
+                          setIsReadyArticle={setIsReadyArticle}
+                />
             </BG>
         </div>
     );
