@@ -6,10 +6,11 @@ import './BG.scss';
 interface BgProps {
     children: React.ReactNode;
     bgElement: React.RefObject<HTMLDivElement>
+    circleElement: React.RefObject<HTMLDivElement>
     isAnimation: boolean
 }
 
-const Bg: FC<BgProps> = ({children, bgElement, isAnimation}) => {
+const Bg: FC<BgProps> = ({children, bgElement, circleElement, isAnimation}) => {
 
     return (
         <div className="h-screen w-screen bg-[#F4F4FE] flex overflow-hidden relative">
@@ -22,7 +23,9 @@ const Bg: FC<BgProps> = ({children, bgElement, isAnimation}) => {
             >
                 <div className="flex w-full h-full relative z-0">
                     <div className="h-[60vh] w-[60vh] bg-[#0045F880] absolute top-1/2 right-24
-                    translate-x-1/2 -translate-y-1/2 z-10 rounded-full"/>
+                    translate-x-1/2 -translate-y-1/2 z-10 rounded-full"
+                         ref={circleElement}
+                    />
                     {isAnimation ?
                         <div>
                             <div className="h-[80vh] w-[80vh] bg-[#2867F333] absolute top-[70px] -right-[190px]

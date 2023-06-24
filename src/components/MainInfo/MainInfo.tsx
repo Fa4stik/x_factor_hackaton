@@ -6,10 +6,11 @@ import {blueImg} from "../../images/images";
 interface MainInfoProps {
     mainElement: React.RefObject<HTMLDivElement>
     bgElement: React.RefObject<HTMLDivElement>
+    circleElement: React.RefObject<HTMLDivElement>
     setIsAnimation: (value: boolean) => void
 }
 
-const MainInfo: FC<MainInfoProps> = ({mainElement, bgElement, setIsAnimation}) => {
+const MainInfo: FC<MainInfoProps> = ({mainElement, bgElement, circleElement, setIsAnimation}) => {
 
     const theme = createTheme({
         typography: {
@@ -39,11 +40,13 @@ const MainInfo: FC<MainInfoProps> = ({mainElement, bgElement, setIsAnimation}) =
 
     const handleGetArticle = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if (mainElement.current && bgElement.current) {
+        if (mainElement.current && bgElement.current && circleElement.current) {
             mainElement.current.style.transition = 'opacity 1.5s';
             mainElement.current.style.opacity = '0';
             bgElement.current.style.transition = 'transform 3s';
             bgElement.current.style.transform  = 'scale(0.7) translateX(-43.5%)';
+            circleElement.current.style.transition = 'background-color 3s';
+            circleElement.current.style.backgroundColor = '#F4F4FE'
 
             setTimeout(() => {
                 if (mainElement.current) {

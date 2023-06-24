@@ -10,6 +10,7 @@ import MainInfo from "./components/MainInfo/MainInfo";
 function App() {
     const mainElement = useRef<HTMLDivElement>(null)
     const bgElement = useRef<HTMLDivElement>(null)
+    const circleElement = useRef<HTMLDivElement>(null)
 
     const theme = createTheme({
         typography: {
@@ -51,7 +52,7 @@ function App() {
 
     return (
         <div className="App">
-            <BG bgElement={bgElement} isAnimation={isAnimation}>
+            <BG bgElement={bgElement} isAnimation={isAnimation} circleElement={circleElement}>
                 {isAnimation ?
                     isReadyArticle ?
                             (
@@ -77,7 +78,7 @@ function App() {
                     :
                     null
                 }
-                <MainInfo mainElement={mainElement} bgElement={bgElement} setIsAnimation={setIsAnimation}/>
+                <MainInfo mainElement={mainElement} bgElement={bgElement} circleElement={circleElement} setIsAnimation={setIsAnimation}/>
             </BG>
         </div>
     );
