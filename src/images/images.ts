@@ -2,6 +2,7 @@ import blue_01 from './BG/Blue/01_img.png';
 import blue_02 from './BG/Blue/02_img.png';
 
 import sofia from './Command/Sofia.png';
+import stepan from './Command/Stepan.png';
 import denis from './Command/Denis.png';
 import julia from './Command/Julia.png';
 import aleks from './Command/Aleks.png';
@@ -13,6 +14,7 @@ export const blueImg = {
 
 export const commandImg = {
     sofia,
+    stepan,
     denis,
     julia,
     aleks

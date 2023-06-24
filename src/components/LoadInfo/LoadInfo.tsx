@@ -30,7 +30,7 @@ export const LoadInfo: FC<LoadInfoProps> = ({children, title, body}) => {
                             <p className="text-[#717171]">team leader</p>
                         </div>
                         <div className="flex flex-col items-center justify-center w-[130px]">
-                            <img src={commandImg.sofia} alt="" className="mb-2 h-[70px]"/>
+                            <img src={commandImg.stepan} alt="" className="mb-2 h-[70px]"/>
                             <h3 className="font-montserratBold">Степан</h3>
                             <p className="text-[#717171]">frontend</p>
                         </div>
