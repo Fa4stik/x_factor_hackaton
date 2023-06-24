@@ -22,7 +22,7 @@ module.exports = {
             opacity: '1',
           },
           "50%": {
-            transform: "scale(1.2)",
+            transform: "scale(1.15)",
             opacity: "0.5",
           },
           "100%": {

@@ -6,9 +6,10 @@ import './BG.scss';
 interface BgProps {
     children: React.ReactNode;
     bgElement: React.RefObject<HTMLDivElement>
+    isAnimation: boolean
 }
 
-const Bg: FC<BgProps> = ({children, bgElement}) => {
+const Bg: FC<BgProps> = ({children, bgElement, isAnimation}) => {
 
     return (
         <div className="h-screen w-screen bg-[#F4F4FE] flex overflow-hidden relative">
@@ -22,10 +23,21 @@ const Bg: FC<BgProps> = ({children, bgElement}) => {
                 <div className="flex w-full h-full relative z-0">
                     <div className="h-[60vh] w-[60vh] bg-[#0045F880] absolute top-1/2 right-24
                     translate-x-1/2 -translate-y-1/2 z-10 rounded-full"/>
-                    <div className="h-[80vh] w-[80vh] bg-[#2867F333] absolute top-1/2 right-24
-                    translate-x-1/2 -translate-y-1/2 z-0 rounded-full animate-scaleAndFade ease-in-out"/> {/* This animation scale and opacity infinity */}
-                    <div className="h-[110vh] w-[110vh] absolute top-1/2 right-24 border-[2px] border-solid border-[#668FFA]
-                    translate-x-1/2 -translate-y-1/2 z-0 rounded-full animate-scaleAndFade ease-in-out"/> {/* This animation scale and opacity infinity */}
+                    {isAnimation ?
+                        <div>
+                            <div className="h-[80vh] w-[80vh] bg-[#2867F333] absolute top-[70px] -right-[190px]
+                        z-0 rounded-full animate-scaleAndFade ease-in-out"/>
+                            <div className="h-[110vh] w-[110vh] absolute -top-[30px] -right-[290px] border-[2px] border-solid border-[#668FFA]
+                        z-0 rounded-full animate-scaleAndFade ease-in-out"/>
+                        </div>
+                        :
+                        <div>
+                            <div className="h-[80vh] w-[80vh] bg-[#2867F333] absolute top-1/2 right-24
+                                        translate-x-1/2 -translate-y-1/2 z-0 rounded-full"/>
+                            <div className="h-[110vh] w-[110vh] absolute top-1/2 right-24 border-[2px] border-solid border-[#668FFA]
+                                            translate-x-1/2 -translate-y-1/2 z-0 rounded-full "/>
+                        </div>
+                    }
                     <div className="h-[140vh] w-[140vh] absolute border-[2px] border-solid border-[#CBD8FC]
                                     -right-[400px] -top-[140px] z-0 rounded-full animate-spin">
                         <div className="h-[10vh] w-[10vh] bg-[#668FFA] rounded-full absolute
