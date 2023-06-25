@@ -16,6 +16,8 @@ import reloadGreen from './green/reload.png';
 import arrowGreenUp from './green/arrowUp.png';
 import arrowGreenDown from './green/arrowDown.png';
 
+import clipboard from './clipboard.png';
+
 export const iconsBlue = {
     cardBlue,
     watchBlue,
@@ -38,4 +40,8 @@ export const iconsGreen = {
     reloadGreen,
     arrowGreenUp,
     arrowGreenDown
+}
+
+export const icons = {
+    clipboard
 }

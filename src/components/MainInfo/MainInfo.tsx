@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useRef, useState} from 'react';
 import {Button, createTheme, TextField, ThemeProvider} from "@mui/material";
-import {iconsBlue, iconsGreen, iconsOrange} from "../../icons/icons";
+import {iconsBlue, iconsGreen, iconsOrange, icons} from "../../icons/icons";
 import {blueImg, orangeImg, greenImg} from "../../images/images";
 import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
@@ -82,12 +82,17 @@ const MainInfo: FC<MainInfoProps> = (
     const arrowUpRef = useRef<HTMLImageElement>(null);
     const arrowDownRef = useRef<HTMLImageElement>(null);
     const imgRef = useRef<HTMLImageElement>(null);
-    const footerRef = useRef<HTMLDivElement>(null)
+    const footerRef = useRef<HTMLDivElement>(null);
+    const endBlockRef = useRef<HTMLDivElement>(null);
+    const footerBlockInfoRef = useRef<HTMLDivElement>(null);
 
     const [youtubeURL, setYoutubeURL] = useState<string>('');
     const [isValidURL, setIsValidURL] = useState<boolean>(true);
 
     const [textError, setTextError] = useState<string>('Некорректное URL для YouTube видео');
+
+    const [activeUrl1, setActiveUrl1] = useState<string>('url1');
+    const [activeUrl2, setActiveUrl2] = useState<string>('url1');
 
     const handleGetArticle = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -115,17 +120,40 @@ const MainInfo: FC<MainInfoProps> = (
                 const {data, isError} = await Article.getArticle(youtubeURL);
                 if (!isError) {
                     const article = data as IArticle
-                    setLinkArticle(article.url[0]);
-                    setIsReadyArticle(true);
+                    // setIsReadyArticle(true);
+                    if (mainElement.current
+                        && bgElement.current
+                        && circleElement1.current
+                        && footerRef.current
+                        && footerBlockInfoRef.current
+                        && endBlockRef.current
+                    ) {
+                        mainElement.current.style.opacity = '1';
+                        bgElement.current.style.transform = 'scale(1.1) translateX(3.5%)';
+                        setIsAnimation(false);
+                        footerBlockInfoRef.current.style.display = 'none';
+                        endBlockRef.current.style.transition = 'display 1s'
+                        setActiveUrl1(article.url[0]);
+                        setActiveUrl2(article.url[1]);
+                        setTimeout(() => {
+                            if (mainElement.current && endBlockRef.current) {
+                                mainElement.current.style.display = 'block';
+                                endBlockRef.current.style.display = 'block'
+                            }
+                        }, 1000)
                 } else {
                     const err = data as IErrorArticle;
                     if (mainElement.current
                         && bgElement.current
                         && circleElement1.current
                         && footerRef.current
+                        && endBlockRef.current
                     ) {
                         mainElement.current.style.opacity = '1';
                         bgElement.current.style.transform = 'scale(1.1) translateX(3.5%)';
+                        endBlockRef.current.style.transition = 'display 1s'
+                        endBlockRef.current.style.display = 'none';
+                        footerBlockInfoRef.current.style.display = 'block'
                         setIsAnimation(false);
                         setIsValidURL(false);
                         if (err.detail) {
@@ -300,6 +328,14 @@ const MainInfo: FC<MainInfoProps> = (
         }
     }
 
+    const handleClipBoardOne = async () => {
+        await navigator.clipboard.writeText(activeUrl1);
+    };
+
+    const handleClipBoardTwo = async () => {
+        await navigator.clipboard.writeText(activeUrl2);
+    };
+
     return (
         <div className="text-left font-montserratReg ml-[120px] mt-40"
              ref={mainElement}
@@ -339,12 +375,12 @@ const MainInfo: FC<MainInfoProps> = (
                     </div>
                 </div>
             </div>
-            <div className="">
+            <div className="mb-24">
                 <div className="flex flex-col w-[450px] mb-6">
                     <h1 className="font-montserratBold text-4xl mb-5">Конвертировать видео в статью</h1>
                     <p>Создать полноценную статью с иллюстрациями и заголовками просто.</p>
                 </div>
-                <div className="flex items-center mb-24 font-montserratReg"
+                <div className="flex items-center font-montserratReg"
                      ref={footerRef}
                 >
                     <ThemeProvider theme={theme}>
@@ -376,8 +412,33 @@ const MainInfo: FC<MainInfoProps> = (
                         </Button>
                     </ThemeProvider>
                 </div>
+
+
+                <div className="flex flex-col mt-5 mb-10 hidden"
+                     ref={endBlockRef}
+                >
+                    <h2 className="font-montserratBold mb-2 text-2xl">Обработка видео завершена</h2>
+                    <p className="mb-3">Перейти к статье:</p>
+                    <div className="flex bg-black text-[#50AEDC] w-[550px]
+                    rounded-[20px] px-4 py-3 font-montserratBold">
+                        <div className="flex mr-4">
+                            <a href={activeUrl1} className="mr-3">1. {activeUrl1}</a>
+                            <img src={icons.clipboard} alt="Clipboard" className="cursor-copy"
+                                 onClick={handleClipBoardOne}
+                            />
+                        </div>
+                        <div className="flex">
+                            <a href={activeUrl2} className="mr-3">2. {activeUrl2}</a>
+                            <img src={icons.clipboard} alt="Clipboard" className="cursor-copy"
+                                 onClick={handleClipBoardTwo}
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className="flex bg-white px-[40px] py-[30px] rounded-[20px] items-center shadow-2xl">
+            <div className="flex bg-white px-[40px] py-[30px] rounded-[20px] items-center shadow-2xl"
+                 ref={footerBlockInfoRef}
+            >
                 <div className="w-[330px]">
                     <img src={iconsBlue.watchBlue} alt="Watch"
                          ref={watchRef}
