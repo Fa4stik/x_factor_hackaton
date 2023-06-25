@@ -1,10 +1,6 @@
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import {IArticle, IErrorArticle} from "./types";
-
-const $api = axios.create({
-    withCredentials: true,
-    baseURL: process.env.BASE_URL
-});
+import $api from "../http/http";
 
 export default class Article {
     static async getArticle(url: string): Promise<{data: IArticle | IErrorArticle, isError: boolean}> {
