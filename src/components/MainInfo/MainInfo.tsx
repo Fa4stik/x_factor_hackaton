@@ -141,34 +141,35 @@ const MainInfo: FC<MainInfoProps> = (
                                 endBlockRef.current.style.display = 'block'
                             }
                         }, 1000)
-                } else {
-                    const err = data as IErrorArticle;
-                    if (mainElement.current
-                        && bgElement.current
-                        && circleElement1.current
-                        && footerRef.current
-                        && endBlockRef.current
-                    ) {
-                        mainElement.current.style.opacity = '1';
-                        bgElement.current.style.transform = 'scale(1.1) translateX(3.5%)';
-                        endBlockRef.current.style.transition = 'display 1s'
-                        endBlockRef.current.style.display = 'none';
-                        footerBlockInfoRef.current.style.display = 'block'
-                        setIsAnimation(false);
-                        setIsValidURL(false);
-                        if (err.detail) {
-                            setTextError(err.detail);
-                            footerRef.current.style.marginBottom = '44px';
-                        }
-                        else {
-                            setTextError("Неизвестная ошибка");
-                            footerRef.current.style.marginBottom = '64px';
-                        }
-                        setTimeout(() => {
-                            if (mainElement.current) {
-                                mainElement.current.style.display = 'block';
+                    } else {
+                        const err = data as IErrorArticle;
+                        if (mainElement.current
+                            && bgElement.current
+                            && circleElement1.current
+                            && footerRef.current
+                            && endBlockRef.current
+                            && footerBlockInfoRef.current
+                        ) {
+                            mainElement.current.style.opacity = '1';
+                            bgElement.current.style.transform = 'scale(1.1) translateX(3.5%)';
+                            endBlockRef.current.style.transition = 'display 1s'
+                            endBlockRef.current.style.display = 'none';
+                            footerBlockInfoRef.current.style.display = 'block'
+                            setIsAnimation(false);
+                            setIsValidURL(false);
+                            if (err.detail) {
+                                setTextError(err.detail);
+                                footerRef.current.style.marginBottom = '44px';
+                            } else {
+                                setTextError("Неизвестная ошибка");
+                                footerRef.current.style.marginBottom = '64px';
                             }
-                        }, 1000)
+                            setTimeout(() => {
+                                if (mainElement.current) {
+                                    mainElement.current.style.display = 'block';
+                                }
+                            }, 1000)
+                        }
                     }
                 }
             }, 3000)
