@@ -1,8 +1,5 @@
 import axios from "axios/index";
-
-interface IArticle {
-    url: string[]
-}
+import {IArticle} from "./types";
 
 const $api = axios.create({
     withCredentials: true,
@@ -10,7 +7,7 @@ const $api = axios.create({
 });
 
 export default class Article {
-    static async login() {
-        return axios.post<IArticle>('/login', {})
+    static async getArticle(url: string) {
+        return $api.post<IArticle>('/article', {url})
     }
 }

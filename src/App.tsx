@@ -45,7 +45,8 @@ function App() {
     const [isAnimation, setIsAnimation] = useState<boolean>(false);
     const [isReadyArticle, setIsReadyArticle] = useState<boolean>(false);
 
-
+    const [title, setTitle] = useState<string>('Видео обрабатывается, это может занять какое-то время')
+    const [body, setBody] = useState<string>('А пока вы можете познакомиться с нашей командой:')
 
     const handleOpenTitle = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -84,7 +85,7 @@ function App() {
                                 </LoadInfo>
                             )
                             :
-                            <LoadInfo title="Видео обрабатывается, это может занять какое-то время" body="А пока вы можете познакомиться с нашей командой:"/>
+                            <LoadInfo title={title} body={body}/>
                     :
                     null
                 }
