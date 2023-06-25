@@ -5,7 +5,7 @@ import $api from "../http/http";
 export default class Article {
     static async getArticle(url: string): Promise<{data: IArticle | IErrorArticle, isError: boolean}> {
         try {
-            const response: AxiosResponse<IArticle> = await $api.post<IArticle>('/article', {url});
+            const response: AxiosResponse<IArticle> = await axios.post<IArticle>('http://textify_app:8000/api/v1//article', {url});
             return { data: response.data, isError: false };
         } catch (error) {
             const axiosError: AxiosError<IErrorArticle> = error as AxiosError<IErrorArticle>;
