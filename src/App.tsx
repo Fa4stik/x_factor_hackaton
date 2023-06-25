@@ -2,19 +2,19 @@ import React, {useEffect, useRef, useState} from 'react';
 import './App.css';
 import BG from "./components/BG/BG";
 import {Button, createTheme, TextField, ThemeProvider} from '@mui/material';
-import {icoArrowBlue, icons} from "./icons/icons";
-import {blueImg, commandImg} from "./images/images";
 import LoadInfo from "./components/LoadInfo/LoadInfo";
 import MainInfo from "./components/MainInfo/MainInfo";
 
 function App() {
-    const mainElement = useRef<HTMLDivElement>(null)
-    const bgElement = useRef<HTMLDivElement>(null)
-    const circleElement1 = useRef<HTMLDivElement>(null)
-    const circleElement2 = useRef<HTMLDivElement>(null)
-    const circleBorderElement1 = useRef<HTMLDivElement>(null)
-    const circleBorderElement2 = useRef<HTMLDivElement>(null)
-    const circleBorderChildElement = useRef<HTMLDivElement>(null)
+    const mainElement = useRef<HTMLDivElement>(null);
+    const bgElement = useRef<HTMLDivElement>(null);
+    const bgColorElement = useRef<HTMLDivElement>(null);
+    const circleElement1 = useRef<HTMLDivElement>(null);
+    const circleElement2 = useRef<HTMLDivElement>(null);
+    const circleBorderElement1 = useRef<HTMLDivElement>(null);
+    const circleBorderElement2 = useRef<HTMLDivElement>(null);
+    const circleBorderChildElement = useRef<HTMLDivElement>(null);
+    const colorButton = useRef<HTMLButtonElement>(null)
 
     const theme = createTheme({
         typography: {
@@ -45,14 +45,17 @@ function App() {
     const [isAnimation, setIsAnimation] = useState<boolean>(false);
     const [isReadyArticle, setIsReadyArticle] = useState<boolean>(false);
 
+
+
     const handleOpenTitle = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        window.location.href = 'https://telegra.ph/Algoritmy-sortirovki-principy-i-primery-06-24';
+        window.location.href = 'https://telegra.ph/Algoritmy-sortirovki-kak-ehto-rabotaet-06-24';
     }
 
     return (
         <div className="App">
             <BG bgElement={bgElement}
+                bgColorElement={bgColorElement}
                 isAnimation={isAnimation}
                 circleElement1={circleElement1}
                 circleElement2={circleElement2}
@@ -87,11 +90,13 @@ function App() {
                 }
                 <MainInfo mainElement={mainElement}
                           bgElement={bgElement}
+                          bgColorElement={bgColorElement}
                           circleElement1={circleElement1}
                           circleElement2={circleElement2}
                           circleBorderElement1={circleBorderElement1}
                           circleBorderElement2={circleBorderElement2}
                           circleBorderChildElement={circleBorderChildElement}
+                          colorButton={colorButton}
                           setIsAnimation={setIsAnimation}
                           setIsReadyArticle={setIsReadyArticle}
                 />

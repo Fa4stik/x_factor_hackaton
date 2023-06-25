@@ -4,8 +4,9 @@ import {useActions} from "../../hooks/useActions/useActions";
 import './BG.scss';
 
 interface BgProps {
-    children: React.ReactNode;
+    children: React.ReactNode
     bgElement: React.RefObject<HTMLDivElement>
+    bgColorElement: React.RefObject<HTMLDivElement>
     circleElement1: React.RefObject<HTMLDivElement>
     circleElement2: React.RefObject<HTMLDivElement>
     circleBorderElement1: React.RefObject<HTMLDivElement>
@@ -18,6 +19,7 @@ const Bg: FC<BgProps> = (
     {
         children,
         bgElement,
+        bgColorElement,
         circleElement1,
         circleElement2,
         circleBorderElement1,
@@ -27,7 +29,9 @@ const Bg: FC<BgProps> = (
     }) => {
 
     return (
-        <div className="h-screen w-screen bg-[#F4F4FE] flex overflow-hidden relative">
+        <div className="h-screen w-screen bg-[#F4F4FE] flex overflow-hidden relative"
+             ref={bgColorElement}
+        >
             <div className="top-[40px] left-[120px] text-[#7E7E7E] text-left absolute">
                 <p className="text-[25px]">X-Factor team</p>
                 <p>PROFBUH HACKATHON | JUNE</p>

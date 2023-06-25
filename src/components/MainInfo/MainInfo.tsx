@@ -1,7 +1,7 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect, useRef, useState} from 'react';
 import {Button, createTheme, TextField, ThemeProvider} from "@mui/material";
-import {icoArrowBlue, icons} from "../../icons/icons";
-import {blueImg} from "../../images/images";
+import {iconsBlue, iconsGreen, iconsOrange} from "../../icons/icons";
+import {blueImg, orangeImg, greenImg} from "../../images/images";
 import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -12,11 +12,13 @@ import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 interface MainInfoProps {
     mainElement: React.RefObject<HTMLDivElement>
     bgElement: React.RefObject<HTMLDivElement>
+    bgColorElement: React.RefObject<HTMLDivElement>
     circleElement1: React.RefObject<HTMLDivElement>
     circleElement2: React.RefObject<HTMLDivElement>
     circleBorderElement1: React.RefObject<HTMLDivElement>
     circleBorderElement2: React.RefObject<HTMLDivElement>
     circleBorderChildElement: React.RefObject<HTMLDivElement>
+    colorButton: React.RefObject<HTMLButtonElement>
     setIsAnimation: (value: boolean) => void
     setIsReadyArticle: (value: boolean) => void
 }
@@ -25,11 +27,13 @@ const MainInfo: FC<MainInfoProps> = (
     {
         mainElement,
         bgElement,
+        bgColorElement,
         circleElement1,
         circleElement2,
         circleBorderElement1,
         circleBorderElement2,
         circleBorderChildElement,
+        colorButton,
         setIsAnimation,
         setIsReadyArticle
     }) => {
@@ -63,9 +67,21 @@ const MainInfo: FC<MainInfoProps> = (
     const [currentTheme, setCurrentTheme] = useState<string>('#50AEDC');
     const [allTheme, setAllTheme] = useState<string[]>(['#50AEDC', '#72D68F', '#F8AD03']);
 
+    const delimiterEl1 = useRef<HTMLDivElement>(null);
+    const delimiterEl2 = useRef<HTMLDivElement>(null);
+    const watchRef = useRef<HTMLImageElement>(null);
+    const reloadRef = useRef<HTMLImageElement>(null);
+    const cardRef = useRef<HTMLImageElement>(null);
+    const arrowUpRef = useRef<HTMLImageElement>(null);
+    const arrowDownRef = useRef<HTMLImageElement>(null);
+    const imgRef = useRef<HTMLImageElement>(null);
+
+
     const [youtubeURL, setYoutubeURL] = useState<string>('');
     const [isValidURL, setIsValidURL] = useState<boolean>(true);
 
+
+    // ПОЛУЧЕНИЕ СТАТЬИ
     const handleGetArticle = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
@@ -91,8 +107,112 @@ const MainInfo: FC<MainInfoProps> = (
         }
     };
 
-    const handleSetColor = (e: React.MouseEvent<HTMLDivElement>, color: string) => {
-        console.log(color);
+    const handleSetColor = async (e: React.MouseEvent<HTMLDivElement>, color: string) => {
+        setCurrentTheme(color);
+        if (circleElement1.current
+            && circleElement2.current
+            && circleBorderElement1.current
+            && circleBorderElement2.current
+            && circleBorderChildElement.current
+            && bgColorElement.current
+            && colorButton.current
+            && delimiterEl1.current
+            && delimiterEl2.current
+            && reloadRef.current
+            && watchRef.current
+            && cardRef.current
+            && imgRef.current
+            && arrowUpRef.current
+            && arrowDownRef.current
+        ) {
+            bgColorElement.current.style.transition = "background-color 3s";
+            circleElement1.current.style.transition = "background-color 3s";
+            circleElement2.current.style.transition = "background-color 3s";
+            circleBorderElement1.current.style.transition = "background-color 3s";
+            circleBorderElement2.current.style.transition = "background-color 3s";
+            circleBorderChildElement.current.style.transition = "background-color 3s";
+            colorButton.current.style.transition = "background-color 3s";
+            delimiterEl1.current.style.transition = "background-color 3s";
+            delimiterEl2.current.style.transition = "background-color 3s";
+            watchRef.current.style.transition = 'opacity 1s';
+            watchRef.current.style.opacity = '0';
+            reloadRef.current.style.transition = 'opacity 1s';
+            reloadRef.current.style.opacity = '0';
+            cardRef.current.style.transition = 'opacity 1s';
+            cardRef.current.style.opacity = '0';
+            imgRef.current.style.transition = 'opacity 1s';
+            imgRef.current.style.opacity = '0';
+            arrowUpRef.current.style.transition = 'opacity 1s';
+            arrowUpRef.current.style.opacity = '0';
+            arrowDownRef.current.style.transition = 'opacity 1s';
+            arrowDownRef.current.style.opacity = '0';
+            if (color === '#F8AD03') {
+                bgColorElement.current.style.backgroundColor = '#ECE9E4'
+                circleElement1.current.style.backgroundColor = '#F8AD03';
+                circleElement2.current.style.backgroundColor = 'rgba(248, 173, 3, 0.50)'
+                circleBorderElement1.current.style.borderColor = '#F07D2C';
+                circleBorderElement2.current.style.borderColor = 'rgba(240, 125, 44, 0.50)';
+                circleBorderChildElement.current.style.backgroundColor = '#F8AD03';
+                colorButton.current.style.backgroundColor = '#E7A204';
+                delimiterEl1.current.style.backgroundColor = '#F8AD03';
+                delimiterEl2.current.style.backgroundColor = '#F8AD03';
+                setTimeout(() => {
+                    if (watchRef.current
+                        && reloadRef.current
+                        && cardRef.current
+                        && imgRef.current
+                        && arrowUpRef.current
+                        && arrowDownRef.current
+                    ) {
+                        watchRef.current.src = iconsOrange.watchOrange;
+                        watchRef.current.style.opacity = '1';
+                        reloadRef.current.src = iconsOrange.reloadOrange;
+                        reloadRef.current.style.opacity = '1';
+                        cardRef.current.src = iconsOrange.cardOrange;
+                        cardRef.current.style.opacity = '1';
+                        arrowDownRef.current.src = iconsOrange.arrowOrangeDown;
+                        arrowDownRef.current.style.opacity = '1';
+                        arrowUpRef.current.src = iconsOrange.arrowOrangeUp;
+                        arrowUpRef.current.style.opacity = '1';
+                        imgRef.current.src = orangeImg.orange_01;
+                        imgRef.current.style.opacity = '1';
+                    }
+                }, 1000)
+            }
+            if (color === '#72D68F') {
+                bgColorElement.current.style.backgroundColor = '#F9FFFA'
+                circleElement1.current.style.backgroundColor = 'rgba(40, 158, 110, 0.50)';
+                circleElement2.current.style.backgroundColor = '#289E6E80'
+                circleBorderElement1.current.style.borderColor = '#289E6E';
+                circleBorderElement2.current.style.borderColor = '#72D68F';
+                circleBorderChildElement.current.style.backgroundColor = '#289D6E';
+                colorButton.current.style.backgroundColor = '#289E6E';
+                delimiterEl1.current.style.backgroundColor = '#289E6E';
+                delimiterEl2.current.style.backgroundColor = '#289E6E';
+                setTimeout(() => {
+                    if (watchRef.current
+                        && reloadRef.current
+                        && cardRef.current
+                        && imgRef.current
+                        && arrowUpRef.current
+                        && arrowDownRef.current
+                    ) {
+                        watchRef.current.src = iconsGreen.watchGreen;
+                        watchRef.current.style.opacity = '1';
+                        reloadRef.current.src = iconsGreen.reloadGreen;
+                        reloadRef.current.style.opacity = '1';
+                        cardRef.current.src = iconsGreen.cardGreen;
+                        cardRef.current.style.opacity = '1';
+                        arrowUpRef.current.src = iconsGreen.arrowGreenUp;
+                        arrowUpRef.current.style.opacity = '1';
+                        arrowDownRef.current.src = iconsGreen.arrowGreenDown;
+                        arrowDownRef.current.style.opacity = '1';
+                        imgRef.current.src = greenImg.green_01;
+                        imgRef.current.style.opacity = '1';
+                    }
+                }, 1000)
+            }
+        }
     }
 
     useEffect(() => {
@@ -170,6 +290,7 @@ const MainInfo: FC<MainInfoProps> = (
                                     text: "white",
                                     fontFamily: 'Montserrat-Bold',
                                 }}
+                                ref={colorButton}
                                 onClick={handleGetArticle}
                         >
                             Получить статью
@@ -179,19 +300,29 @@ const MainInfo: FC<MainInfoProps> = (
             </div>
             <div className="flex bg-white px-[40px] py-[30px] rounded-[20px] items-center shadow-2xl">
                 <div className="w-[330px]">
-                    <img src={icons.watch} alt="Watch"/>
+                    <img src={iconsBlue.watchBlue} alt="Watch"
+                         ref={watchRef}
+                    />
                     <h2 className="my-3 font-montserratBold">Не трать время на копирайтинг</h2>
                     <p>Достаточно просто ввести url видео и конвертировать его в статью!</p>
                 </div>
-                <div className="w-[2px] h-[115px] bg-[#668FFA] rounded-full mx-[40px]"/>
+                <div className="w-[2px] h-[115px] bg-[#668FFA] rounded-full mx-[40px]"
+                     ref={delimiterEl1}
+                />
                 <div className="w-[330px]">
-                    <img src={icons.reload} alt="Reload"/>
+                    <img src={iconsBlue.reloadBlue} alt="Reload"
+                         ref={reloadRef}
+                    />
                     <h2 className="my-3 font-montserratBold">Читай и смотри</h2>
                     <p>Переключайся между текстом и видео в один клик!</p>
                 </div>
-                <div className="w-[2px] h-[115px] bg-[#668FFA] rounded-full mx-[40px]"/>
+                <div className="w-[2px] h-[115px] bg-[#668FFA] rounded-full mx-[40px]"
+                     ref={delimiterEl2}
+                />
                 <div className="w-[330px]">
-                    <img src={icons.card} alt="Card"/>
+                    <img src={iconsBlue.cardBlue} alt="Card"
+                         ref={cardRef}
+                    />
                     <h2 className="my-3 font-montserratBold">Сохраняй заметки</h2>
                     <p>Ты всегда сможешь вернуться к интересным и важним моментам.</p>
                 </div>
@@ -199,18 +330,21 @@ const MainInfo: FC<MainInfoProps> = (
             <img src={blueImg.blue_01}
                  alt="1c"
                  className="h-[240px] absolute right-[364px] top-[40px] z-10"
+                 ref={imgRef}
             />
-            <img src={icoArrowBlue.arrowBlueUp}
+            <img src={iconsBlue.arrowBlueUp}
                  alt="Arrow up"
                  className="h-[80px] absolute right-[284px] top-[76px] z-100"
+                 ref={arrowUpRef}
             />
-            <img src={blueImg.blue_02}
+            <img src={blueImg.img_02}
                  alt="1c"
                  className="h-[320px] absolute right-[126px] top-[150px] z-10"
             />
-            <img src={icoArrowBlue.arrowBlueDown}
+            <img src={iconsBlue.arrowBlueDown}
                  alt="Arrow down"
                  className="h-[80px] absolute right-[400px] top-[282px] z-10"
+                 ref={arrowDownRef}
             />
         </div>
     );
