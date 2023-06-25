@@ -50,6 +50,8 @@ function App() {
     const [title, setTitle] = useState<string>('Видео обрабатывается, это может занять какое-то время')
     const [body, setBody] = useState<string>('А пока вы можете познакомиться с нашей командой:')
 
+    const btnCommonArticle = useRef<HTMLButtonElement>(null)
+
     const handleOpenTitle = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         window.location.href = linkArticle;
@@ -80,6 +82,7 @@ function App() {
                                                     fontFamily: 'Montserrat-Bold',
                                                 }}
                                                 onClick={handleOpenTitle}
+                                                ref={btnCommonArticle}
                                         >
                                             Перейти к статье
                                         </Button>
@@ -100,6 +103,7 @@ function App() {
                           circleBorderElement2={circleBorderElement2}
                           circleBorderChildElement={circleBorderChildElement}
                           colorButton={colorButton}
+                          btnCommonArticle={btnCommonArticle}
                           setIsAnimation={setIsAnimation}
                           setIsReadyArticle={setIsReadyArticle}
                           setLinkArticle={setLinkArticle}

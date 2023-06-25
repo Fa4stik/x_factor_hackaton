@@ -22,6 +22,7 @@ interface MainInfoProps {
     circleBorderElement2: React.RefObject<HTMLDivElement>
     circleBorderChildElement: React.RefObject<HTMLDivElement>
     colorButton: React.RefObject<HTMLButtonElement>
+    btnCommonArticle: React.RefObject<HTMLButtonElement>
     setIsAnimation: (value: boolean) => void
     setIsReadyArticle: (value: boolean) => void
     setLinkArticle: (value: string) => void
@@ -38,6 +39,7 @@ const MainInfo: FC<MainInfoProps> = (
         circleBorderElement2,
         circleBorderChildElement,
         colorButton,
+        btnCommonArticle,
         setIsAnimation,
         setIsReadyArticle,
         setLinkArticle
@@ -158,6 +160,7 @@ const MainInfo: FC<MainInfoProps> = (
             && circleBorderChildElement.current
             && bgColorElement.current
             && colorButton.current
+            && btnCommonArticle.current
             && delimiterEl1.current
             && delimiterEl2.current
             && reloadRef.current
@@ -174,6 +177,7 @@ const MainInfo: FC<MainInfoProps> = (
             circleBorderElement2.current.style.transition = "background-color 3s";
             circleBorderChildElement.current.style.transition = "background-color 3s";
             colorButton.current.style.transition = "background-color 3s";
+            btnCommonArticle.current.style.transition = "background-color 3s";
             delimiterEl1.current.style.transition = "background-color 3s";
             delimiterEl2.current.style.transition = "background-color 3s";
             watchRef.current.style.transition = 'opacity 1s';
@@ -197,6 +201,7 @@ const MainInfo: FC<MainInfoProps> = (
                 circleBorderElement2.current.style.borderColor = 'rgba(240, 125, 44, 0.50)';
                 circleBorderChildElement.current.style.backgroundColor = '#F8AD03';
                 colorButton.current.style.backgroundColor = '#E7A204';
+                btnCommonArticle.current.style.backgroundColor = '#E7A204';
                 delimiterEl1.current.style.backgroundColor = '#F8AD03';
                 delimiterEl2.current.style.backgroundColor = '#F8AD03';
                 setTimeout(() => {
@@ -230,6 +235,7 @@ const MainInfo: FC<MainInfoProps> = (
                 circleBorderElement2.current.style.borderColor = '#72D68F';
                 circleBorderChildElement.current.style.backgroundColor = '#289D6E';
                 colorButton.current.style.backgroundColor = '#289E6E';
+                btnCommonArticle.current.style.backgroundColor = '#289E6E';
                 delimiterEl1.current.style.backgroundColor = '#289E6E';
                 delimiterEl2.current.style.backgroundColor = '#289E6E';
                 setTimeout(() => {
@@ -263,6 +269,7 @@ const MainInfo: FC<MainInfoProps> = (
                 circleBorderElement2.current.style.borderColor = '#CBD8FC';
                 circleBorderChildElement.current.style.backgroundColor = '#668FFA';
                 colorButton.current.style.backgroundColor = '#668FFA';
+                btnCommonArticle.current.style.backgroundColor = '#668FFA';
                 delimiterEl1.current.style.backgroundColor = '#668FFA';
                 delimiterEl2.current.style.backgroundColor = '#668FFA';
                 setTimeout(() => {
