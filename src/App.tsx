@@ -45,12 +45,14 @@ function App() {
     const [isAnimation, setIsAnimation] = useState<boolean>(false);
     const [isReadyArticle, setIsReadyArticle] = useState<boolean>(false);
 
+    const [linkArticle, setLinkArticle] = useState<string>('')
+
     const [title, setTitle] = useState<string>('Видео обрабатывается, это может занять какое-то время')
     const [body, setBody] = useState<string>('А пока вы можете познакомиться с нашей командой:')
 
     const handleOpenTitle = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        window.location.href = 'https://telegra.ph/Algoritmy-sortirovki-kak-ehto-rabotaet-06-24';
+        window.location.href = linkArticle;
     }
 
     return (
@@ -100,6 +102,7 @@ function App() {
                           colorButton={colorButton}
                           setIsAnimation={setIsAnimation}
                           setIsReadyArticle={setIsReadyArticle}
+                          setLinkArticle={setLinkArticle}
                 />
             </BG>
         </div>

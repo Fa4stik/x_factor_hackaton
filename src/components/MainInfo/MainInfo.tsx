@@ -10,7 +10,7 @@ import ExpandLessOutlinedIcon from '@mui/icons-material/ExpandLessOutlined';
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import Article from "../../api/service/Article";
 import {deflateRaw} from "zlib";
-import {IArticle} from "../../api/service/types";
+import {IArticle, IErrorArticle} from "../../api/service/types";
 
 interface MainInfoProps {
     mainElement: React.RefObject<HTMLDivElement>
@@ -24,6 +24,7 @@ interface MainInfoProps {
     colorButton: React.RefObject<HTMLButtonElement>
     setIsAnimation: (value: boolean) => void
     setIsReadyArticle: (value: boolean) => void
+    setLinkArticle: (value: string) => void
 }
 
 const MainInfo: FC<MainInfoProps> = (
@@ -38,7 +39,8 @@ const MainInfo: FC<MainInfoProps> = (
         circleBorderChildElement,
         colorButton,
         setIsAnimation,
-        setIsReadyArticle
+        setIsReadyArticle,
+        setLinkArticle
     }) => {
     const theme = createTheme({
         typography: {
@@ -83,8 +85,6 @@ const MainInfo: FC<MainInfoProps> = (
     const [youtubeURL, setYoutubeURL] = useState<string>('');
     const [isValidURL, setIsValidURL] = useState<boolean>(true);
 
-    const [response, setResponse] = useState<IArticle | null>(null)
-
     const [textError, setTextError] = useState<string>('Некорректное URL для YouTube видео');
 
     const handleGetArticle = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -96,7 +96,7 @@ const MainInfo: FC<MainInfoProps> = (
                 mainElement.current.style.transition = 'opacity 1.5s';
                 mainElement.current.style.opacity = '0';
                 bgElement.current.style.transition = 'transform 3s';
-                bgElement.current.style.transform  = 'scale(0.7) translateX(-43.5%)';
+                bgElement.current.style.transform = 'scale(0.7) translateX(-43.5%)';
                 circleElement1.current.style.transition = 'background-color 3s';
                 circleElement1.current.style.backgroundColor = '#F4F4FE'
 
@@ -106,8 +106,44 @@ const MainInfo: FC<MainInfoProps> = (
                     }
                 }, 3000)
             }
-            // await Article.getArticle(youtubeURL);
+
             setIsAnimation(true);
+
+            setTimeout(async () => {
+                const {data, isError} = await Article.getArticle(youtubeURL);
+                if (!isError) {
+                    const article = data as IArticle
+                    setLinkArticle(article.url[0]);
+                    setIsReadyArticle(true);
+                } else {
+                    const err = data as IErrorArticle;
+                    if (mainElement.current
+                        && bgElement.current
+                        && circleElement1.current
+                        && footerRef.current
+                    ) {
+                        mainElement.current.style.opacity = '1';
+                        bgElement.current.style.transform = 'scale(1.1) translateX(3.5%)';
+                        circleElement1.current.style.backgroundColor = '#0045F880'
+                        setIsAnimation(false);
+                        setIsValidURL(false);
+                        if (err.detail) {
+                            setTextError(err.detail);
+                            footerRef.current.style.marginBottom = '44px';
+                        }
+                        else {
+                            setTextError("Неизвестная ошибка");
+                            footerRef.current.style.marginBottom = '64px';
+                        }
+                        setTimeout(() => {
+                            if (mainElement.current) {
+                                mainElement.current.style.display = 'block';
+                            }
+                        }, 1000)
+                    }
+                }
+            }, 3000)
+
         } else {
             setIsValidURL(false)
         }
@@ -255,32 +291,6 @@ const MainInfo: FC<MainInfoProps> = (
         }
     }
 
-    useEffect(() => {
-        (async() => {
-            setTimeout(() => {
-                if (mainElement.current
-                    && bgElement.current
-                    && circleElement1.current
-                    && footerRef.current
-                ) {
-                    mainElement.current.style.opacity = '1';
-                    bgElement.current.style.transform  = 'scale(1.1) translateX(3.5%)';
-                    circleElement1.current.style.backgroundColor = '#0045F880'
-                    setIsAnimation(false);
-                    setIsValidURL(false);
-                    setTextError('Видео слишком большое, чтобы его быстро обработать');
-                    footerRef.current.style.marginBottom = '44px';
-                    setTimeout(() => {
-                        if (mainElement.current) {
-                            mainElement.current.style.display = 'block';
-                        }
-                    }, 1000)
-                }
-                // setIsReadyArticle(true)
-            }, 7000)
-        })();
-    }, [handleGetArticle])
-
     return (
         <div className="text-left font-montserratReg ml-[120px] mt-40"
              ref={mainElement}
@@ -294,7 +304,7 @@ const MainInfo: FC<MainInfoProps> = (
                         />
                     </div>
                     <div className="mr-10 rounded-t-2xl">
-                        <ListItem button onClick={() => setOpen(!open)} >
+                        <ListItem button onClick={() => setOpen(!open)}>
                             {open ? <ExpandLessOutlinedIcon/> : <ExpandMoreOutlinedIcon/>}
                         </ListItem>
                     </div>
